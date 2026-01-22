@@ -4,15 +4,12 @@ import TodoList from '../components/TodoList';
 import { TodoStatus } from '../Interfaces/types';
 
 const TodoPage = () => {
-  const [todos, setTodos] = useState([]);
-  const [editingTodo, setEditingTodo] = useState(null);
-
-  useEffect(() => {
+  const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem('todos');
-    if (savedTodos) {
-      setTodos(JSON.parse(savedTodos));
-    }
-  }, []);
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  });
+  
+  const [editingTodo, setEditingTodo] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
